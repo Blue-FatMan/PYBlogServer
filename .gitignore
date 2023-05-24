@@ -3,3 +3,12 @@ venv
 
 # ignore pycharm idea
 .idea
+
+# local sqlite database
+db.sqlite3
+
+# test download path
+/test/output/
+
+# local service html download path
+/download_blog/
