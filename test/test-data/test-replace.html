@@ -1,0 +1,122 @@
+<a href="https://blog.csdn.net/rhn_111/article/details/129125277" title="点击跳转到原始链接">点击跳转到原始链接 https://blog.csdn.net/rhn_111/article/details/129125277</a>  
+<br/>
+ <h1 class="title-article" id="articleContentId">Linux基础命令-ps查看进程状态</h1> 
+<br/>
+ <div class="article_content clearfix" id="article_content">
+<link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css" rel="stylesheet"/>
+<link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-25cebea3f9.css" rel="stylesheet"/>
+<div class="htmledit_views" id="content_views">
+<blockquote>
+<p><a href="https://blog.csdn.net/rhn_111/article/details/129107565?spm=1001.2014.3001.5501" title="Linux基础命令-sort内容排序">Linux基础命令-sort内容排序</a></p>
+<p><a href="https://blog.csdn.net/rhn_111/article/details/129090764?spm=1001.2014.3001.5501" title="Linux基础命令-chattr更改文件隐藏属性">Linux基础命令-chattr更改文件隐藏属性</a></p>
+</blockquote>
+<p id="main-toc"><strong>文章目录</strong></p>
+<p id="%E5%89%8D%E8%A8%80-toc" style="margin-left:0px;"><a href="#%E5%89%8D%E8%A8%80">前言</a></p>
+<p id="%E4%B8%80%20%E5%91%BD%E4%BB%A4%E7%9A%84%E4%BB%8B%E7%BB%8D-toc" style="margin-left:0px;"><a href="#%E4%B8%80%20%E5%91%BD%E4%BB%A4%E7%9A%84%E4%BB%8B%E7%BB%8D">一 命令的介绍</a></p>
+<p id="%E4%BA%8C%20%E8%AF%AD%E6%B3%95%E5%8F%8A%E5%8F%82%E6%95%B0-toc" style="margin-left:0px;"><a href="#%E4%BA%8C%20%E8%AF%AD%E6%B3%95%E5%8F%8A%E5%8F%82%E6%95%B0">二 语法及参数</a></p>
+<p id="2.1%20%E9%80%9A%E8%BF%87help%E5%92%8Cman%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4%E7%9A%84%E8%AF%AD%E6%B3%95-toc" style="margin-left:40px;"><a href="#2.1%20%E9%80%9A%E8%BF%87help%E5%92%8Cman%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4%E7%9A%84%E8%AF%AD%E6%B3%95">2.1 通过help和man查看命令的语法</a></p>
+<p id="2.2%20%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0-toc" style="margin-left:40px;"><a href="#2.2%20%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0">2.2 命令参数</a></p>
+<p id="2.3%20%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0-toc" style="margin-left:40px;"><a href="#2.3%20%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0">2.3 常用参数</a></p>
+<p id="%E4%B8%89%E3%80%81%E5%8F%82%E6%95%B0%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E5%AE%B9%E5%90%AB%E4%B9%89-toc" style="margin-left:0px;"><a href="#%E4%B8%89%E3%80%81%E5%8F%82%E6%95%B0%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E5%AE%B9%E5%90%AB%E4%B9%89">三 参数使用与内容含义</a></p>
+<p id="3.1%20%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%BD%93%E4%B8%AD%E6%89%80%E6%9C%89%E7%9A%84%E6%95%B0%E6%8D%AE-toc" style="margin-left:40px;"><a href="#3.1%20%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%BD%93%E4%B8%AD%E6%89%80%E6%9C%89%E7%9A%84%E6%95%B0%E6%8D%AE">3.1 查看系统当中所有的数据</a></p>
+<p id="3.1.1%20ps%20aux%E4%B8%AD%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E5%90%AB%E4%B9%89-toc" style="margin-left:80px;"><a href="#3.1.1%20ps%20aux%E4%B8%AD%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E5%90%AB%E4%B9%89">3.1.1 ps aux中状态栏的含义</a></p>
+<p id="3.1.2%20STAT%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E5%90%84%E8%87%AA%E4%BB%A3%E8%A1%A8%E7%9A%84%E5%90%AB%E4%B9%89%C2%A0-toc" style="margin-left:80px;"><a href="#3.1.2%20STAT%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E5%90%84%E8%87%AA%E4%BB%A3%E8%A1%A8%E7%9A%84%E5%90%AB%E4%B9%89%C2%A0">3.1.2 STAT进程状态各自代表的含义 </a></p>
+<p id="3.1.3%20STAT%E7%8A%B6%E6%80%81%E5%90%8E%E7%9A%84%E5%86%85%E5%AE%B9%E5%90%AB%E4%B9%89-toc" style="margin-left:80px;"><a href="#3.1.3%20STAT%E7%8A%B6%E6%80%81%E5%90%8E%E7%9A%84%E5%86%85%E5%AE%B9%E5%90%AB%E4%B9%89">3.1.3 STAT状态后的内容含义</a></p>
+<p id="3.2%20%E4%BB%A5%E6%9B%B4%E8%AF%A6%E7%BB%86%E7%9A%84%E6%A0%BC%E5%BC%8F%E6%98%BE%E7%A4%BA%E8%BF%9B%E7%A8%8B-toc" style="margin-left:40px;"><a href="#3.2%20%E4%BB%A5%E6%9B%B4%E8%AF%A6%E7%BB%86%E7%9A%84%E6%A0%BC%E5%BC%8F%E6%98%BE%E7%A4%BA%E8%BF%9B%E7%A8%8B">3.2 以更详细的格式显示进程</a></p>
+<p id="3.2.1%20ps%20lA%E4%B8%AD%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E5%90%AB%E4%B9%89-toc" style="margin-left:80px;"><a href="#3.2.1%20ps%20lA%E4%B8%AD%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E5%90%AB%E4%B9%89">3.2.1 ps lA中状态栏的含义</a></p>
+<p id="%C2%A03.3%20%E6%98%BE%E7%A4%BA%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8F%98%E9%87%8F%E5%92%8C%E5%AE%8C%E6%95%B4%E7%9A%84%E6%A0%BC%E5%BC%8F-toc" style="margin-left:40px;"><a href="#%C2%A03.3%20%E6%98%BE%E7%A4%BA%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8F%98%E9%87%8F%E5%92%8C%E5%AE%8C%E6%95%B4%E7%9A%84%E6%A0%BC%E5%BC%8F"> 3.3 显示进程的变量和完整的格式</a></p>
+<p id="3.3.1%20ps%20-ef%E4%B8%AD%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E5%90%AB%E4%B9%89-toc" style="margin-left:80px;"><a href="#3.3.1%20ps%20-ef%E4%B8%AD%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E5%90%AB%E4%B9%89">3.3.1 ps -ef中状态栏的含义</a></p>
+<p id="%C2%A0%E6%80%BB%E7%BB%93-toc" style="margin-left:0px;"><a href="#%C2%A0%E6%80%BB%E7%BB%93"> 总结</a></p>
+<h1 id="%E5%89%8D%E8%A8%80">前言</h1>
+<p>        在linux中，有时需要会看进程的状态，知道哪些进程占用了多少的CPU、内存，以及当前系统的状态怎么样等等，下面来看下这个命令的一些参数。 </p>
+<h1 id="%E4%B8%80%20%E5%91%BD%E4%BB%A4%E7%9A%84%E4%BB%8B%E7%BB%8D">一 命令的介绍</h1>
+<p>        ps命令来自于英文词组“process status”，其功能使用与显示当前系统的进程状态。使用ps这个命令可以查看到进程的所有信息，例如说是进程的PID号、发起用户、系统资源使用占比（CPU，内存）、运行状态等。帮助我们可以及时发现哪些进程出现“僵死”或“不可中断”等异常情况。</p>
+<h1 id="%E4%BA%8C%20%E8%AF%AD%E6%B3%95%E5%8F%8A%E5%8F%82%E6%95%B0">二 语法及参数</h1>
+<h2 id="2.1%20%E9%80%9A%E8%BF%87help%E5%92%8Cman%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4%E7%9A%84%E8%AF%AD%E6%B3%95">2.1 通过help和man查看命令的语法</h2>
+<p>ps命令可以直接加参数进行查看进程；</p>
+<p>语法：ps 【参数】</p>
+<pre><code>SYNOPSIS
+       ps [options]
+</code></pre>
+<h2 id="2.2%20%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0">2.2 命令参数</h2>
+<p>        ps命令的所有参数，可以看到这个命令的参数是有很多的，基本上这个命令只有几个是常用的。 </p>
+<table><tbody><tr><td>a</td><td>显示当前终端下的所有进程，包括其他用户的进程</td></tr><tr><td>-A</td><td>所有进程都显示出来</td></tr><tr><td>c</td><td>显示每个进程真正的指令名称，而不包含路径</td></tr><tr><td>-C &lt;指令名称&gt;</td><td>指定执行指令的名称，并列出该指令的程序的状况</td></tr><tr><td>-d</td><td>显示所有程序，但不包括阶段作业管理员的程序</td></tr><tr><td>e</td><td>显示进程及环境变量</td></tr><tr><td>-f</td><td>显示UID,PPID,C与STIME栏位</td></tr><tr><td>f</td><td>用ASCII字符显示树状结构，表达程序间的相互关系</td></tr><tr><td>g</td><td>显示现行终端机下的所有程序，包括所属组的程序</td></tr><tr><td>-G &lt;群组识别码&gt;</td><td>列出属于该群组的程序的状况</td></tr><tr><td>h</td><td>不显示标题列</td></tr><tr><td>-H</td><td>显示树状结构，表示程序间的相互关系</td></tr><tr><td>-j</td><td>采用工作控制的格式显示程序状况</td></tr><tr><td>-l</td><td>采用详细的格式来显示程序状况</td></tr><tr><td>L</td><td>列出栏位的相关信息</td></tr><tr><td>-m</td><td>显示所有的执行绪</td></tr><tr><td>n</td><td>以数字来表示USER和WCHAN栏位</td></tr><tr><td>-N</td><td>显示所有的程序，除了执行ps指令终端机下的程序之外</td></tr><tr><td>-p &lt;程序识别码&gt;</td><td>指定程序识别码，并列出该程序的状况</td></tr><tr><td>r</td><td>只列出现行终端机正在执行中的程序</td></tr><tr><td>-s &lt;阶段作业&gt;</td><td>列出隶属该阶段作业的程序的状况</td></tr><tr><td>s</td><td>采用程序信号的格式显示程序状况</td></tr><tr><td>S</td><td>列出程序时，包括已中断的子程序资料</td></tr><tr><td>-t &lt;终端机编号&gt;</td><td>列出属于该终端机的程序的状况</td></tr><tr><td>-T</td><td>显示现行终端机下的所有程序</td></tr><tr><td>u</td><td>以用户为主的格式来显示程序状况</td></tr><tr><td>-U &lt;用户识别码&gt;</td><td>列出属于该用户的程序的状况</td></tr><tr><td>U &lt;用户名称&gt;</td><td>列出属于该用户的程序的状况</td></tr><tr><td>v</td><td>采用虚拟内存的格式显示进程状况</td></tr><tr><td>-V或V</td><td>显示版本信息</td></tr><tr><td>-w或w</td><td>采用宽阔的格式来显示进程状况</td></tr><tr><td>x</td><td>显示所有进程，不以终端来区分</td></tr><tr><td>X</td><td>采用旧式的Linux i386登陆格式显示程序状况</td></tr><tr><td>-y</td><td>配合选项”-l”使用时，不显示F(flag)栏位，并以RSS栏位取代ADDR栏位</td></tr><tr><td>--cols &lt;每列字符数&gt;</td><td>设置每列的最大字符数</td></tr><tr><td>--headers</td><td>重复显示标题列</td></tr><tr><td>--help</td><td>在线帮助</td></tr><tr><td>--info</td><td>显示排错信息</td></tr><tr><td>--lines &lt;显示列数&gt;</td><td>设置显示画面的列数</td></tr></tbody></table>
+<h2 id="2.3%20%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0">2.3 常用参数</h2>
+<table><tbody><tr><td>a</td><td>显示当前终端下的所有进程，包括其他用户的进程</td></tr><tr><td>-A</td><td>所有进程都显示出来</td></tr><tr><td>u</td><td>以用户为主的格式来显示程序状况</td></tr><tr><td>f</td><td>用ASCII字符显示树状结构，表达程序间的相互关系</td></tr><tr><td>x</td><td>显示所有进程，不以终端来区分</td></tr><tr><td>e</td><td>显示进程及环境变量</td></tr><tr><td>-l</td><td>采用详细的格式来显示程序状况</td></tr></tbody></table>
+<h1 id="%E4%B8%89%E3%80%81%E5%8F%82%E6%95%B0%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E5%AE%B9%E5%90%AB%E4%B9%89">三 参数使用与内容含义</h1>
+<h2 id="3.1%20%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%BD%93%E4%B8%AD%E6%89%80%E6%9C%89%E7%9A%84%E6%95%B0%E6%8D%AE">3.1 查看系统当中所有的数据</h2>
+<p>ps显示所有进程，用wc显示行数，可以看到一共有这么多行，当然也可以加上个more，就可以慢慢看 </p>
+<pre><code>[root@localhost ~]# ps aux | wc -l
+214
+
+[root@localhost ~]# ps aux |more
+USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root          1  0.0  0.1 193912  7008 ?        Ss   15:16   0:02 /usr/lib/systemd/systemd --switched-r
+oot --system --deserialize 22
+root          2  0.0  0.0      0     0 ?        S    15:16   0:00 [kthreadd]
+root          4  0.0  0.0      0     0 ?        S&lt;   15:16   0:00 [kworker/0:0H]
+root          6  0.0  0.0      0     0 ?        S    15:16   0:00 [ksoftirqd/0]
+root          7  0.0  0.0      0     0 ?        S    15:16   0:00 [migration/0]
+root          8  0.0  0.0      0     0 ?        S    15:16   0:00 [rcu_bh]
+root          9  0.0  0.0      0     0 ?        S    15:16   0:00 [rcu_sched]
+......</code></pre>
+<h3 id="3.1.1%20ps%20aux%E4%B8%AD%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E5%90%AB%E4%B9%89">3.1.1 ps aux中状态栏的含义</h3>
+<p><img alt="" height="23" src="https://img-blog.csdnimg.cn/632b0b77a278414fb0f5948deabd022c.png" width="932"/></p>
+<table><thead><tr><th>状态栏内容</th><th>含义</th></tr></thead><tbody><tr><td>USER</td><td>进程的用户发起者</td></tr><tr><td>PID</td><td>进程的PID值，每个进程都有属于自己PID</td></tr><tr><td>%CPU</td><td>进程占用CPU的百分比</td></tr><tr><td>%MEM</td><td>进程占用内存的百分比</td></tr><tr><td>VSZ</td><td>虚拟内存，进程占用虚拟内存大小（单位：KB）</td></tr><tr><td>RSS</td><td>常驻内存，也就是物理内存，进程占用了物理内存大小（单位：KB）</td></tr><tr><td>TTY</td><td>在哪个终端上面运行，？表示与终端没有关系，显示tty1则是在本地上启动的进程</td></tr><tr><td>STAT</td><td>进程的状态，有5个状态</td></tr><tr><td>START</td><td>该process被触发启动的时间</td></tr><tr><td>TIME</td><td>该process实际使用CPU运行的时间</td></tr><tr><td>COMMAND</td><td>该程序的实际指令</td></tr></tbody></table>
+<h3 id="3.1.2%20STAT%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E5%90%84%E8%87%AA%E4%BB%A3%E8%A1%A8%E7%9A%84%E5%90%AB%E4%B9%89%C2%A0">3.1.2 STAT进程状态各自代表的含义 </h3>
+<p><img alt="" height="244" src="https://img-blog.csdnimg.cn/d5585199d0384837b22086aecde6e6a3.png" width="938"/></p>
+<ul><li>R：runing，表示当前正在运行的进程</li><li>S：sleep，当前正在睡眠的进程</li><li>T：stopped，当前停止运行的进程</li><li>D：当前不可中断的进程</li><li>Z：zombie，僵尸进程，即进程已终止，但却无法被移除至内存外</li></ul>
+<h3 id="3.1.3%20STAT%E7%8A%B6%E6%80%81%E5%90%8E%E7%9A%84%E5%86%85%E5%AE%B9%E5%90%AB%E4%B9%89">3.1.3 STAT状态后的内容含义</h3>
+<p><img alt="" height="207" src="https://img-blog.csdnimg.cn/345eb0ebc3a7464b9780a404f9dea682.png" width="937"/></p>
+<ul><li>&lt; 表示进程运行在高优先级上</li><li>N 表示进程运行在低优先级上</li><li>L 表示进程有页面锁定在内存中</li><li>s 表示进程是控制进程</li><li>l 表示进程是多进程</li><li>+表示当前进程运行在前台</li></ul>
+<h2 id="3.2%20%E4%BB%A5%E6%9B%B4%E8%AF%A6%E7%BB%86%E7%9A%84%E6%A0%BC%E5%BC%8F%E6%98%BE%E7%A4%BA%E8%BF%9B%E7%A8%8B">3.2 以更详细的格式显示进程</h2>
+<pre><code>[root@localhost ~]# ps -Al | more
+F S   UID    PID   PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+4 S     0      1      0  0  80   0 - 48478 ep_pol ?        00:00:03 systemd
+1 S     0      2      0  0  80   0 -     0 kthrea ?        00:00:00 kthreadd
+1 S     0      4      2  0  60 -20 -     0 worker ?        00:00:00 kworker/0:0H
+1 S     0      6      2  0  80   0 -     0 smpboo ?        00:00:00 ksoftirqd/0
+1 S     0      7      2  0 -40   - -     0 smpboo ?        00:00:00 migration/0
+1 S     0      8      2  0  80   0 -     0 rcu_gp ?        00:00:00 rcu_bh
+1 S     0      9      2  0  80   0 -     0 rcu_gp ?        00:00:00 rcu_sched
+</code></pre>
+<h3 id="3.2.1%20ps%20lA%E4%B8%AD%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E5%90%AB%E4%B9%89">3.2.1 ps lA中状态栏的含义</h3>
+<p><img alt="" height="23" src="https://img-blog.csdnimg.cn/a2defdaf78ed45bc985bd5abaa1d24fa.png" width="934"/></p>
+<table><thead><tr><th>状态栏内容</th><th>含义</th></tr></thead><tbody><tr><td>F</td><td>进程的旗标 4表示进程权限root 、1表示进程仅仅只能复制，不能执行、0表示进程已经执行结束。</td></tr><tr><td>S</td><td>进程的状态，有五个状态，S 睡眠、T 停止、R 运行、D 不可停止、Z 僵尸进程</td></tr><tr><td>UID</td><td>启用进程的用户UID</td></tr><tr><td>PID</td><td>进程的PID</td></tr><tr><td>PPID</td><td>进程的父进程</td></tr><tr><td>C</td><td>CPU的使用率，单位是百分比</td></tr><tr><td>PRI</td><td>Rriority，代表系统内核所设定的优先级，不可修改</td></tr><tr><td>NI</td><td>NIce，代表用户可修改的优先级，优先级越低，就越快被CPU执行</td></tr><tr><td>ADDR</td><td>该进程在内存的哪个部分</td></tr><tr><td>SZ</td><td>进程用掉了内存的多少</td></tr><tr><td>WCHAN</td><td>进程是否再运行，若运行为 -</td></tr><tr><td>TTY</td><td>进程是否再当前登录的终端启用的，若不是显示为？</td></tr><tr><td>TIME</td><td>进程使用CPU的时间</td></tr><tr><td>COMMAND</td><td>当前进程的实际指令</td></tr></tbody></table>
+<h2 id="%C2%A03.3%20%E6%98%BE%E7%A4%BA%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8F%98%E9%87%8F%E5%92%8C%E5%AE%8C%E6%95%B4%E7%9A%84%E6%A0%BC%E5%BC%8F"> 3.3 显示进程的变量和完整的格式</h2>
+<pre><code>[root@localhost ~]# ps -ef | more
+UID         PID   PPID  C STIME TTY          TIME CMD
+root          1      0  0 15:16 ?        00:00:03 /usr/lib/systemd/systemd --switched-root --system --d
+eserialize 22
+root          2      0  0 15:16 ?        00:00:00 [kthreadd]
+root          4      2  0 15:16 ?        00:00:00 [kworker/0:0H]
+......</code></pre>
+<h3 id="3.3.1%20ps%20-ef%E4%B8%AD%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E5%90%AB%E4%B9%89">3.3.1 ps -ef中状态栏的含义</h3>
+<p><img alt="" height="23" src="https://img-blog.csdnimg.cn/e94740392e2c4d7a931b68574ff3b43b.png" width="933"/></p>
+<table border="1" cellpadding="1" cellspacing="1"><tbody><tr><td>状态栏</td><td style="width:558px;">含义</td></tr><tr><td>UID</td><td style="width:558px;">运行进程的用户</td></tr><tr><td>PID</td><td style="width:558px;">进程的PID，唯一值</td></tr><tr><td>PPID</td><td style="width:558px;">进程的父进程</td></tr><tr><td>C</td><td style="width:558px;">占用CPU的百分比 %</td></tr><tr><td>STIME</td><td style="width:558px;">进程启动的时间</td></tr><tr><td>TTY</td><td style="width:558px;">启动进程的终端</td></tr><tr><td>TIME</td><td style="width:558px;">进程占用CPU的时间</td></tr><tr><td>CMD</td><td style="width:558px;">运行进程的指令</td></tr></tbody></table>
+<h1 id="%C2%A0%E6%80%BB%E7%BB%93"> 总结</h1>
+<p>        这个命令要记的参数并不多，可以说常用到的就那么几个，更主要还是要了解这个命令的内容的含义；若觉得以上内容还行的，可以点赞支持一下！</p>
+<p style="text-align:center;"><img alt="" src="https://img-blog.csdnimg.cn/f931a080477149cb987ac44220187731.jpeg"/></p>
+<p></p>
+</div>
+</div>
+<br/>
+
+<!-- csdn共用css -->
+<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-light.css">
+<link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-98b95bb57c.css" rel="stylesheet">
+<link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-c216769e99.css" rel="stylesheet">
+
+<!-- jquery -->
+<script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+<!-- 富文本柱状图  -->
+<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/chart/chart.css" />
+<script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/chart/lib/chart.min.js"></script>
+<script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/chart/widget2chart.js"></script>
+<script src="https://csdnimg.cn/release/blogv2/dist/components/js/axios-83fa28cedf.min.js" type="text/javascript"></script>
+<script src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_highlight-8defd55d6e.min.js" type="text/javascript"></script>
+<script src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_common-be82269d23.min.js" type="text/javascript"></script>
+<script src="https://csdnimg.cn/release/blogv2/dist/components/js/edit_copy_code-2d3931414f.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-light.css">
+<script src="https://g.csdnimg.cn/user-accusation/1.0.5/user-accusation.js" type="text/javascript"></script>

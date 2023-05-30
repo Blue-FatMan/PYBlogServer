@@ -56,8 +56,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'PYBlogServer.urls'
 
-# 从网络下载的html博文本地存储路径
-DOWNLOAD_BLOG_DIR = os.path.join(BASE_DIR, "download_blog")
+# 从网络下载的html博文本地存储路径(包含下载的静态文件，媒体文件)
+DOWNLOAD_BLOG_DIR = os.path.join(BASE_DIR, "download-blog")
 if not os.path.exists(DOWNLOAD_BLOG_DIR):
     os.makedirs(DOWNLOAD_BLOG_DIR, exist_ok=True)
 

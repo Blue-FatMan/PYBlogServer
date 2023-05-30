@@ -8,7 +8,14 @@ venv
 db.sqlite3
 
 # test download path
-/test/output/
+.pytest_cache
+/test/test-download-html/
+/test/test-download-media-static/
+/test/test-replace-output/
+
+# test config local
+/test/config_local.py
 
 # local service html download path
-/download_blog/
+/download-blog/
+
