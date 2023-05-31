@@ -10,7 +10,7 @@
   },
   "menuInfo": [
     {
-      "title": "常规管理",
+      "title": "博客",
       "icon": "fa fa-address-book",
       "href": "",
       "target": "_self",
@@ -142,7 +142,7 @@
       ]
     },
     {
-      "title": "组件管理",
+      "title": "",
       "icon": "fa fa-lemon-o",
       "href": "",
       "target": "_self",

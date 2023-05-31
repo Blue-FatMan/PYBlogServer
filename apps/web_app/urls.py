@@ -17,11 +17,16 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
 
-from .views import Index, WebInit, PageView
+from .views import Index, PageView, Login, LogOut
+from .get_veriy_img import get_verify_img
 
 urlpatterns = [
     url(r'^$', Index.as_view(), name='index'),  # 首页
-    url(r'^api/init/$', WebInit.as_view(), name='api_init'),  # 首页初始化json数据
+
+    # [登录-退出]
+    url(r'^get_verify_img/', get_verify_img, name='verify_img'),  # 登录验证码
+    url(r'^api/v1/user/login/$', Login.as_view(), name='login'),  # 登录
+    url(r'^api/v1/user/logout/$', LogOut.as_view(), name='logout'),  # 退出登录
 
     url(r'^page/(.+)', PageView.as_view(), name='web_page_view'),  # 返回web/page下面的各静态页面
 ]
