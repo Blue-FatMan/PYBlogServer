@@ -22,3 +22,5 @@ db.sqlite3
 # local service html download path
 /download-blog/
 
+# ignore the mac file .DS_Store
+.DS_Store
