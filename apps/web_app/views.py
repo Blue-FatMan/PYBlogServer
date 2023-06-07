@@ -64,6 +64,10 @@ class PageView(View):
         # 编辑博客
         if request_type == "edit-blog":
             blog = Blog.objects.get(pk=request_params["id"])
+
+            # 当前仅支持本地编写的博客，下载的博客不支持修改
+            if blog.blog_from != "local":
+                raise RuntimeError("only support local write blog, not support download from internet...")
             blog.content = mark_safe(BlogContent.objects.get(pk=blog.content_id).content)
             return {"blog": blog}
 

@@ -71,5 +71,42 @@ class BlogDetailApi(APIView):
 
     def get(self, request, blog_pk):
         blog = Blog.objects.get(pk=blog_pk)
-        blog.content = mark_safe(BlogContent.objects.get(pk=blog.content_id).content)
-        return render(request, "page/blog/detail.html", {"blog": blog})
+        if blog.blog_from == "local":
+            blog.content = mark_safe(BlogContent.objects.get(pk=blog.content_id).content)
+            return render(request, "page/blog/detail.html", {"blog": blog})
+        elif blog.blog_from == "internet":
+            local_path = BlogDownloadContent.objects.get(pk=blog.content_id).local_path
+            return render(request, local_path)  # 从 settings.DOWNLOAD_BLOG_FOLDER_NAME 下面查找
+
+
+class BlogDeleteApi(APIView):
+    """
+    method: delete: 删除博文
+    """
+
+    def delete(self, request):
+        res = OperateResCode()
+
+        try:
+            if not request.user.is_authenticated:
+                raise RuntimeError("user not login, request fail !!!")
+
+            data = request.data
+            blog_id_list = data.get("data")
+            blog_obj = Blog.objects.filter(pk__in=blog_id_list)
+
+            content_local_id_list = [__.content_id for __ in blog_obj if __.blog_from == "local"]
+            content_local_obj = BlogContent.objects.filter(pk__in=content_local_id_list)
+
+            content_download_id_list = [__.content_id for __ in blog_obj if __.blog_from == "internet"]
+            content_download_obj = BlogDownloadContent.objects.filter(pk__in=content_download_id_list)
+
+            blog_obj.delete()
+            content_local_obj.delete()
+            content_download_obj.delete()
+            # 暂时不删除富文本上传的媒体文件
+            return Response(res.success)
+
+        except:
+            print(traceback.format_exc())
+            return Response(res.unknown_error, status=res.unknown_error["code"])

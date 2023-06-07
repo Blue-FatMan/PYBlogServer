@@ -62,8 +62,8 @@ def replace_with_local_file(local_html, download_dir, output_html_dir, test=Fals
                 # 如果是测试模式下，那就默认为html和下载的文件处于同一个路径下
                 output_path = f'.{output_path.split(download_dir)[1]}'
             else:
-                # todo 需要根据django url最终配置，返回对应的值
-                raise RuntimeError("not support test for False")
+                # 根据django url最终配置，返回对应的值
+                output_path = f'/blog/download/static/{output_path.split("download-blog")[1]}'
             static_link_replace_map[link] = f"{output_path}"
 
     # 下载媒体文件
@@ -77,8 +77,8 @@ def replace_with_local_file(local_html, download_dir, output_html_dir, test=Fals
                 # 如果是测试模式下，那就默认为html和下载的文件处于同一个路径下
                 output_path = f'.{output_path.split(download_dir)[1]}'
             else:
-                # todo 需要根据django url最终配置，返回对应的值
-                raise RuntimeError("not support test for False")
+                # 根据django url最终配置，返回对应的值
+                output_path = f'/blog/download/media/{output_path.split("download-blog")[1]}'
             media_link_replace_map[link] = f"{output_path}"
 
     # print(static_link_replace_map)

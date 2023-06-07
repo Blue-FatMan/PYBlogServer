@@ -16,12 +16,19 @@ from ..models import Blog
 class BlogSerializer(serializers.ModelSerializer):
     category_name = serializers.SerializerMethodField()  # 分类名称
     tags_name = serializers.SerializerMethodField()  # 标签名称
+    source_from = serializers.SerializerMethodField()  # 来源
 
     def get_category_name(self, obj):
         return obj.category_name()
 
     def get_tags_name(self, obj):
         return obj.tags_name()
+
+    def get_source_from(self, obj):
+        if obj.blog_from == "local":
+            return "本地编写"
+        elif obj.blog_from == "internet":
+            return "网络下载"
 
     class Meta:
         model = Blog

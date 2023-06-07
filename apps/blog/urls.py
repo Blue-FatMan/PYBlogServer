@@ -16,11 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
+from django.views import static
+from django.conf import settings
+
 from .views_models.views_upload import UploadMedia
 from .views_models.views_tag import TagsApi
 from .views_models.views_category import CategoriesApi
 from .views_models.views_blog_local import BlogApi as LocalBlogApi
-from .views_models.views_blog import BlogListApi, BlogDetailApi
+from .views_models.views_blog_download import BlogApi as DownloadBlogApi
+from .views_models.views_blog import BlogListApi, BlogDetailApi, BlogDeleteApi
 
 
 urlpatterns = [
@@ -36,7 +40,11 @@ urlpatterns = [
     url(r'^article/(?P<blog_pk>\w+)/detail/$', BlogDetailApi.as_view(), name='article-detail'),  # 查看博文详情
     url(r'^api/v1/article/local/all/$', BlogListApi.as_view(), name='article-list'),  # 查看博文列表
 
-    url(r'^api/v1/article/create/$', LocalBlogApi.as_view(), name='article-all'),  # 博文新建接口
-    url(r'^api/v1/article/delete/$', LocalBlogApi.as_view(), name='article-delete'),  # 博文删除接口
+    url(r'^api/v1/article/create/$', LocalBlogApi.as_view(), name='article-create'),  # 博文新建接口
+    url(r'^api/v1/article/download/$', DownloadBlogApi.as_view(), name='article-download'),  # 博文下载接口
+    url(r'^api/v1/article/delete/$', BlogDeleteApi.as_view(), name='article-delete'),  # 博文删除接口
     url(r'^api/v1/article/(?P<blog_pk>\w+)/update/$', LocalBlogApi.as_view(), name='article-update'),  # 博文更新接口
+
+    url(r'^download/static/(?P<path>.*)$', static.serve, {'document_root': settings.DOWNLOAD_BLOG_DIR}, name='download-static'),
+    url(r'^download/media/(?P<path>.*)$', static.serve, {'document_root': settings.DOWNLOAD_BLOG_DIR}, name='download-media'),
 ]
