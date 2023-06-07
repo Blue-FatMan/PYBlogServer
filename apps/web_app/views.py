@@ -5,9 +5,12 @@ from django.shortcuts import render
 from django.views.generic.base import View
 from django.http import HttpResponse, JsonResponse
 from django.contrib import auth
+from django.utils.safestring import mark_safe
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from collections import OrderedDict
+from django.conf import settings
+from blog.models import Blog, BlogContent
 import traceback
 
 
@@ -47,8 +50,25 @@ class PageView(View):
                 return render(request, "page/" + page_name)
 
     def process_request_type(self, request, request_type, request_params):
-        # 用例步骤详情
-        res = request_params.dict()
+        # 首页
+        if request_type == "welcome":
+            blog = Blog.objects.all()
+            result = dict()
+            for item in blog:
+                if item.categories not in result:
+                    result[item.categories] = []
+
+                result[item.categories].append(item)
+
+            return {"blog_dict": result}
+        # 编辑博客
+        if request_type == "edit-blog":
+            blog = Blog.objects.get(pk=request_params["id"])
+            blog.content = mark_safe(BlogContent.objects.get(pk=blog.content_id).content)
+            return {"blog": blog}
+
+        else:
+            res = request_params.dict()
         return res
 
 
@@ -97,3 +117,16 @@ class LogOut(APIView):
         if request.user.is_authenticated:
             auth.logout(request)
         return HttpResponse(JsonResponse({"code": "200"}), content_type='application/json')
+
+
+# 主页初始化数据
+class WebInit(View):
+
+    def get(self, request):
+        """主页初始化 json
+        :param request:
+        :return:
+        """
+        json_path = os.path.join(settings.STATIC_ROOT, 'layuimini-v2.0.6.1-iframe', 'api', "init.json")
+        init_data = read_json(json_path)
+        return JsonResponse(init_data, json_dumps_params={"ensure_ascii": False})

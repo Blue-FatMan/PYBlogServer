@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ blog.title }}</title>
+    <script src='/static/tinymce_6.4.2/tinymce/js/tinymce/tinymce.min.js'></script>
+    <script src="/static/tools-link/js/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+<h1>{{ blog.title }}</h1>
+<div id="tmp-content" style="display: none;">{{ blog.content|safe }}</div>
+<div id="content"></div>
+
+<script>
+    tinymce.init({
+        selector: '#content',
+        language: 'zh-Hans',
+        inline:true,  // 内联模式    | 内联+只读 共同生成预览模式 |
+        readonly: true,  // 只读模式 |                      |
+
+        plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template code codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount imagetools textpattern help emoticons autosave indent2em autoresize formatpainter',
+        toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | \
+        styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
+        table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | indent2em lineheight formatpainter',
+
+        fontsize_formats: '12px 14px 16px 18px 24px 36px 48px 56px 72px',
+        font_formats: '微软雅黑=Microsoft YaHei,Helvetica Neue,PingFang SC,sans-serif;苹果苹方=PingFang SC,Microsoft YaHei,sans-serif;宋体=simsun,serif;仿宋体=FangSong,serif;黑体=SimHei,sans-serif;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;',
+        importcss_append: false,
+        toolbar_sticky: false,
+        autosave_ask_before_unload: false,  // 页面刷新之前是否提示用户保存
+
+        init_instance_callback: initData,
+    });
+    function initData(instance) {
+        // 插入内容
+        var content_html = $('#tmp-content').html();
+        tinyMCE.activeEditor.setContent(content_html);
+    }
+</script>
+
+</body>
+</html>

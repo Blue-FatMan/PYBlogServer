@@ -23,6 +23,6 @@ from django.conf.urls.static import static as media_static
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'', include("web_app.urls")),
-    url(r'blog', include("blog.urls")),
+    url(r'blog/', include("blog.urls")),
     url(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),
 ] + media_static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

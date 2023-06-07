@@ -24,3 +24,6 @@ db.sqlite3
 
 # ignore the mac file .DS_Store
 .DS_Store
+
+# media folder
+/media/
